@@ -47,8 +47,8 @@ public class Update extends HttpServlet {
 
          BookDao.update(book);
 
-
-      //   req.getRequestDispatcher("update2").forward(req,resp);
+        // TODO: 05/08/2022 forward  
+         req.getRequestDispatcher("update2").forward(req,resp);
 
         }
 
