@@ -1,23 +1,27 @@
-package uz.pdp.book_strore_2.service;
+package uz.pdp.librarymanagementsystem.user;
 
 
-import uz.pdp.book_strore_2.db.Database;
-import uz.pdp.book_strore_2.entity.User;
+import uz.pdp.librarymanagementsystem.db.DbConnection;
+import uz.pdp.librarymanagementsystem.issued.Issued_Returned;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserService {
 
-    static Connection connection = Database.getConnection();
+    static Connection connection = DbConnection.getConnection();
     static PreparedStatement preparedStatement = null;
     static ResultSet resultSet = null;
     static int user_id = 0;
     static Integer role_id = 0;
     static String roleName2;
+
+    static String username;
 
     public static String getRoleName() {
         return roleName2;
@@ -26,7 +30,7 @@ public class UserService {
     public static int saveUser(User user) {
 
         int statusUser = 0;
-        Connection connection1 = Database.getConnection();
+        Connection connection1 = DbConnection.getConnection();
 
         try {
 
@@ -50,7 +54,7 @@ public class UserService {
 
 
     public static int getId(String username) {
-        Connection connection2 = Database.getConnection();
+        Connection connection2 = DbConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection2.prepareStatement("select id from users where username =?");
             preparedStatement.setString(1, username);
@@ -71,7 +75,7 @@ public class UserService {
 
 
     public static int getRoleId(String roleName) {
-        Connection connection3 = Database.getConnection();
+        Connection connection3 = DbConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection3.prepareStatement("select id from roles where name=? ; ");
             preparedStatement.setString(1, roleName);
@@ -94,7 +98,7 @@ public class UserService {
 
     public static void saveRole(Integer userId, Integer roleId) {
 
-        Connection connection4 = Database.getConnection();
+        Connection connection4 = DbConnection.getConnection();
 
         // TODO: 31/07/2022 save user role
         try {
@@ -113,7 +117,7 @@ public class UserService {
 
     public static boolean checkUser(User user) {
         boolean check = false;
-        Connection connection5 = Database.getConnection();
+        Connection connection5 = DbConnection.getConnection();
         try {
 
             // TODO: 31/07/2022 save user
@@ -124,6 +128,7 @@ public class UserService {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 check = true;
+                user_id = resultSet.getInt("id");
             }
             preparedStatement.close();
 
@@ -164,4 +169,190 @@ public class UserService {
 
         return check;
     }
+
+    public static List<User> getAllUserForIssued() {
+        List<User> userList = new ArrayList<>();
+        Connection connection1 = DbConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement1 = connection.prepareStatement("select * from users");
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+                User user = User.builder()
+                        .id(resultSet1.getInt(1))
+                        .username(resultSet1.getString(2))
+                        .password(resultSet1.getString(3))
+                        .fullName(resultSet1.getString(4))
+                        .build();
+                userList.add(user);
+            }
+
+            connection1.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return userList;
+    }
+
+
+    // TODO: 08/08/2022 user update by id
+    public static int userUpdate(User user) {
+        int status = 0;
+        Connection connection1 = DbConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement1 = connection1.prepareStatement("update  users set username=?,password=?,fullname=? where id=?");
+            preparedStatement1.setString(1, user.getUsername());
+            preparedStatement1.setString(2, user.getPassword());
+            preparedStatement1.setString(3, user.getFullName());
+            preparedStatement1.setInt(4, user.getId());
+            status = preparedStatement1.executeUpdate();
+
+            connection1.close();
+        } catch (SQLException e) {
+            return status = 0;
+        }
+
+        return status;
+    }
+
+
+    // TODO: 08/08/2022  delete user by id
+    public static void deleteUser(Integer id) {
+        try {
+            Connection connection1 = DbConnection.getConnection();
+            PreparedStatement preparedStatement1 = connection1.prepareStatement("delete from users_roles where user_id=?");
+            preparedStatement1.setInt(1, id);
+            preparedStatement1.execute();
+
+            PreparedStatement preparedStatement2 = connection1.prepareStatement("delete from users where id=?");
+            preparedStatement2.setInt(1, id);
+            preparedStatement2.execute();
+
+
+            connection1.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    // TODO: 08/08/2022 get All users
+    public static List<User> getAllUsers(int x) {
+        int page = (x - 1) * 3;
+        List<User> userList = new ArrayList<>();
+
+        try {
+            Connection connection1 = DbConnection.getConnection();
+            PreparedStatement preparedStatement1 = connection1.prepareStatement(" select users.id, users.username,users.password," +
+                    "users.fullname,roles.name as role from users" +
+
+                    " join users_roles ur on ur.user_id=users.id join " +
+
+                    "roles on roles.id=ur.role_id where roles.name not in('SuperAdmin','Admin') offset ? limit 3;");
+            preparedStatement1.setInt(1, page);
+
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+                User user = User.builder()
+                        .id(resultSet1.getInt(1))
+                        .username(resultSet1.getString(2))
+                        .password(resultSet1.getString(3))
+                        .fullName(resultSet1.getString(4))
+                        .role(resultSet1.getString(5))
+                        .build();
+
+                userList.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return userList;
+    }
+
+
+    // TODO: 08/08/2022 get All users size for pagination
+
+    public static int usersSize() {
+        int size = 0;
+        try {
+            Connection connection1 = DbConnection.getConnection();
+            PreparedStatement preparedStatement1 = connection1.prepareStatement("select * from users join users_roles ur on ur.user_id=users.id " +
+                    "join roles on roles.id=ur.role_id where roles.name not in('SuperAdmin','Admin');");
+
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+                size++;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return size ;
+    }
+
+
+    public static User getUserById(Integer id) {
+        User user1 = new User();
+        try {
+            Connection connection1 = DbConnection.getConnection();
+            PreparedStatement preparedStatement1 = connection1.prepareStatement("select username,fullname,password from users where id =?");
+            preparedStatement1.setInt(1, id);
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+                User user = User.builder()
+                        .username(resultSet1.getString(1))
+                        .fullName(resultSet1.getString(2))
+                        .password(resultSet1.getString(3))
+                        .build();
+                user1 = user;
+
+
+            }
+
+        } catch (SQLException e) {
+            return user1;
+        }
+
+        return user1;
+    }
+
+
+    public static List<Issued_Returned> myBook() {
+        List<Issued_Returned> issued_returnedList = new ArrayList<>();
+
+        try {
+
+            Connection connection1 = DbConnection.getConnection();
+            PreparedStatement preparedStatement1 = null;
+
+            preparedStatement1 = connection1.prepareStatement("select  ir.date, u.fullname, b.title " +
+                    "from   issued_returned_books ir" +
+                    " join  users u on  ir.student_id=u.id " +
+                    "join  book b on b.id=ir.book_id where u.id=?;");
+            preparedStatement1.setLong(1, user_id);
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            while (resultSet1.next()) {
+                Issued_Returned issued_returned = new Issued_Returned();
+
+                issued_returned.setTitle(resultSet1.getString(3));
+                issued_returned.setDate(String.valueOf(resultSet1.getDate(1)));
+                issued_returned.setFullName(resultSet1.getString(2));
+                issued_returnedList.add(issued_returned);
+            }
+            connection1.close();
+            return issued_returnedList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
 }

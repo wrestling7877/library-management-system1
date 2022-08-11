@@ -10,7 +10,7 @@
 <html>
 <head>
 
-    <%@page import="uz.pdp.book_strore_2.welcome.Welcome" %>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {

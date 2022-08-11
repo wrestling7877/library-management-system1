@@ -17,22 +17,34 @@ public class ViewBookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
         String pageStr = req.getParameter("page");
         int page = 1;
         if (pageStr != null) {
             page = Integer.parseInt(pageStr);
         }
-        int size = 6;
-
-        List<Book> bookList = BookDao.getAllBooks(size, page);
-           int bookSize = BookDao.size();
+        int size12 = 6;
+        List<Book> bookList = BookDao.getAllBooks(size12, page);
+        int size = BookDao.size();
         req.setAttribute("bookList", bookList);
-        req.setAttribute("bookSize",bookSize);
+        req.setAttribute("bookSize", size);
 
         Boolean added = Boolean.valueOf(req.getParameter("added"));
         if (added) {
             req.setAttribute("message", "Successfully added!!!");
+        }
+
+
+
+        if (page != 1) {
+            req.setAttribute("prev", page - 1);
+        } else {
+            req.setAttribute("prev", page);
+        }
+
+        if ((page * 3) > size) {
+            req.setAttribute("page", page);
+        } else {
+            req.setAttribute("page", page + 1);
         }
         req.getRequestDispatcher("book.jsp").forward(req, resp);
     }

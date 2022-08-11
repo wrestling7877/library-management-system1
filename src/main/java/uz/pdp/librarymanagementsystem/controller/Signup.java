@@ -1,12 +1,12 @@
-package uz.pdp.book_strore_2.controller;
+package uz.pdp.librarymanagementsystem.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uz.pdp.book_strore_2.entity.User;
-import uz.pdp.book_strore_2.service.UserService;
+import uz.pdp.librarymanagementsystem.user.User;
+import uz.pdp.librarymanagementsystem.user.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;

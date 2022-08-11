@@ -62,7 +62,7 @@ public class AddBookServlet extends HttpServlet {
         boolean result = BookDao.addNewBook(book);
 
         if (result) {
-            resp.sendRedirect("/books?added=true");
+            resp.sendRedirect("adminPage.jsp");
         }
 
 

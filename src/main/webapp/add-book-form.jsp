@@ -51,8 +51,8 @@
                         multiple
                         aria-label="Please select authors"
                         data-live-search="true"
-                        name="authorsIds"
-                >
+                        name="authorsIds" >
+
                     <c:forEach items="${authorList}" var="author">
                         <option value="${author.getId()}">${author.getFullName()}</option>
                     </c:forEach>
@@ -62,9 +62,9 @@
             <div class="form-group">
                 <label for="categoryId">Category:</label>
                 <select required class="form-control" id="categoryId" name="categoryId">
-                    <option selected disabled value="0">Select category:</option>
-                    <c:forEach items="${categoryList}" var="category">
-                        <option value="${category.getId()}">${category.getName()}</option>
+                    <option selected disabled value="0">Select category: </option>
+                    <c:forEach items="${categoryList}" var="category" >
+                        <option  value="${category.getId()}">${category.getName()} </option>
                     </c:forEach>
                 </select>
             </div>
@@ -74,11 +74,11 @@
             </div>
             <div class="form-group">
                 <label for="year">Year:</label>
-                <input class="form-control" id="year" type="number" name="year">
+                <input class="form-control" id="year" type="number" required name="year">
             </div>
             <div class="form-group">
                 <label for="quantity">Quantity:</label>
-                <input class="form-control" id="quantity" type="number" name="quantity">
+                <input class="form-control" id="quantity" type="number" required name="quantity">
             </div>
 
             <div class="form-group">

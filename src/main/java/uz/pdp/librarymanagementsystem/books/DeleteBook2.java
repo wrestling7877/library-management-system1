@@ -14,7 +14,10 @@ public class DeleteBook2 extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.valueOf(req.getParameter("id"));
 
-            BookDao.deleteBook(id);
+         boolean true_or_false=BookDao.deleteBook(id);
+
+         req.setAttribute("itrue",true_or_false);
+
      req.getRequestDispatcher("deleteBook").forward(req,resp);
 
     }

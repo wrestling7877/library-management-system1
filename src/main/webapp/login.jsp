@@ -47,15 +47,15 @@
 
        <input type="text" name="username"placeholder="Enter Username" required><br><br>
 
-       <input type="text" name="password"placeholder="Enter password" required><br><br>
+       <input type="password" name="password"placeholder="Enter password" required><br><br>
 
        <input type="submit" value="Login"><br><br>
 
 
           <br><br>
-          <a href="signup.jsp">Signup</a>
+
         <br>
-        <button> <a href="https://www.instagram.com/wrestling_7877/"> Wrestling7877</a> </button>
+       <a href="https://www.instagram.com/wrestling_7877/"> Wrestling7877</a>
       </form>
       <br>
     </div>
