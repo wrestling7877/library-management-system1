@@ -2,13 +2,15 @@
   Created by IntelliJ IDEA.
   User: DELL
   Date: 31/07/2022
-  Time: 19:48
+  Time: 02:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -17,7 +19,7 @@
         }
 
         .hero-image {
-            background-image: url("https://divisare-res.cloudinary.com/images/c_limit,f_auto,h_2000,q_auto,w_3000/v1569222525/tpaduyzk8ekb7dlwez4a/snohetta-michael-grimm-charles-library.jpg");
+            background-image: url("https://s01.yapfiles.ru/files/1990311/polenebogorizontpeyzazh.jpg");
             background-color: #cccccc;
             height: 600px;
             background-position: center;
@@ -37,29 +39,25 @@
     </style>
 </head>
 <body>
-<%@include file="includes/navbarForAdminSuperAdmin.jsp" %>
-
 <div class="hero-image">
     <div class="hero-text">
         <h1 style="font-size:50px"></h1>
         <h3></h3>
         <div align="center">
-            <h1> Admin Page</h1>
-        </div>
-        <div align="center">
+            <form action = "signup" method="post">
 
+                <input type="text" name="username"placeholder="Enter Username" required><br><br>
 
-            <button><a href="/add-book">Add Book</a><br><br></button>
-            <button><a href="userPagination">User delete and update</a><br><br></button>
-            <button><a href="signup.jsp">Add user</a><br><br></button>
-            <br><br>
-            <button><a href="addAuthor.jsp">Add Author</a><br><br></button>
-            <button><a href="books">Home page</a><br><br></button>
-            <br><br>
-            <button><a href="update2">Book Update</a><br><br></button>
-            <button><a href="deleteBook">Delete book</a><br><br></button>
+                <input type="text" name="password"placeholder="Enter password" required><br><br>
 
+                <input type="text" name="fullName"placeholder="Enter FullName" required><br><br>
 
+                <input type="submit" value="Signup"><br><br>
+
+                <br>
+                <button> <a href="https://www.instagram.com/wrestling_7877/"> Wrestling7877</a> </button>
+            </form>
+            <br>
         </div>
     </div>
 </div>

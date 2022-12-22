@@ -27,7 +27,20 @@ public class Update2 extends HttpServlet {
         List<Book> bookList = BookDao.getAllBooks(size, page);
         int bookSize = BookDao.size();
         req.setAttribute("bookList", bookList);
-        req.setAttribute("bookSize", bookSize);
+
+        if (page!=1){
+            req.setAttribute("prev", page-1);
+        }else {
+            req.setAttribute("prev", page);
+        }
+
+        if ((page*3)>size){
+            req.setAttribute("page", page);
+        }else {
+            req.setAttribute("page", page + 1);
+        }
+
+
         req.getRequestDispatcher("showUpdate.jsp").forward(req, resp);
     }
 
@@ -39,12 +52,25 @@ public class Update2 extends HttpServlet {
         if (pageStr != null) {
             page = Integer.parseInt(pageStr);
         }
-        int size = 6;
+        int size12 = 6;
 
-        List<Book> bookList = BookDao.getAllBooks(size, page);
-        int bookSize = BookDao.size();
+        List<Book> bookList = BookDao.getAllBooks(size12, page);
+        int size = BookDao.size();
         req.setAttribute("bookList", bookList);
-        req.setAttribute("bookSize", bookSize);
+
+
+        if ((page*3)>size){
+            req.setAttribute("page", page);
+        }else {
+            req.setAttribute("page", page + 1);
+        }
+        if (page!=1){
+            req.setAttribute("prev", page-1);
+        }else {
+            req.setAttribute("prev", page);
+        }
+
+
         req.getRequestDispatcher("showUpdate.jsp").forward(req, resp);
 
 

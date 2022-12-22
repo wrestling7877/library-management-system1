@@ -17,7 +17,7 @@
         }
 
         .hero-image {
-            background-image: url("https://divisare-res.cloudinary.com/images/c_limit,f_auto,h_2000,q_auto,w_3000/v1569222525/tpaduyzk8ekb7dlwez4a/snohetta-michael-grimm-charles-library.jpg");
+            background-image: url("https://phonoteka.org/uploads/posts/2021-06/1624337566_6-phonoteka_org-p-superkari-oboi-krasivo-6.jpg");
             background-color: #cccccc;
             height: 600px;
             background-position: center;
@@ -44,20 +44,20 @@
         <h1 style="font-size:50px"></h1>
         <h3></h3>
         <div align="center">
-            <h1> Admin Page</h1>
+            <h1>Super Admin Page</h1>
         </div>
         <div align="center">
-
-
+            <button><a href="redirectUser">Select Admin</a><br><br></button>
             <button><a href="/add-book">Add Book</a><br><br></button>
-            <button><a href="userPagination">User delete and update</a><br><br></button>
-            <button><a href="signup.jsp">Add user</a><br><br></button>
-            <br><br>
-            <button><a href="addAuthor.jsp">Add Author</a><br><br></button>
-            <button><a href="books">Home page</a><br><br></button>
-            <br><br>
             <button><a href="update2">Book Update</a><br><br></button>
             <button><a href="deleteBook">Delete book</a><br><br></button>
+            <button><a href="signup.jsp">Add user</a><br><br></button>
+            <button><a href="userPagination">User delete and update</a><br><br></button>
+            <br><br>
+            <button><a href="addAuthor.jsp">Add Author</a><br><br></button>
+            <button><a href="viewAdmin">View Admin</a><br><br></button>
+            <button><a href="books">Home page</a><br><br></button>
+            <br><br>
 
 
         </div>

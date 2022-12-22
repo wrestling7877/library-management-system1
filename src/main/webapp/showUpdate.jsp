@@ -3,6 +3,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 8px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button2 {background-color: #008CBA;} /* Blue */
+        .button2 {border-radius: 12px;}
+        .button5 {border-radius: 12px;}
+        .button5 {background-color: #555555;} /* Black */
+    </style>
     <title>BOOK PAGE</title>
     <!--    <link rel="stylesheet" href="styles.css">-->
 
@@ -11,7 +31,7 @@
 
 <body>
 
-<%@include file="includes/navbar.jsp" %>
+<%@include file="includes/navbarForAdminSuperAdmin.jsp" %>
 
 <!--SAYTNI MENYUDAN PASTKI QISMI KONTENTLAR-->
 <section class="container mt-4 ">
@@ -51,11 +71,26 @@
 
     </div>
     <div align="center">
-        <c:forEach begin="${1}" end="${bookSize}" var="sizeBook">
 
-            <a href="update2?page=${sizeBook}">${  sizeBook}</a>
 
-        </c:forEach>
+        <%    int page1 = (int) request.getAttribute("page");
+            int next = page1;
+        %>
+        <%    int page2= (int) request.getAttribute("prev") ;
+            int prev = page2;
+        %>
+
+
+
+        <a href="update2?page=<%=prev%>">  <button class="button button2">Previous</button> </a>
+
+        <a href="update2?page=${1}"> ${1}</a>
+        <a href="update2?page=${2}"> ${2}</a>
+
+        <a href="update2?page=<%=next%>">  <button class="button button5">Next</button> </a>
+
+
+
     </div>
 </section>
 

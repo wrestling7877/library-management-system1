@@ -61,4 +61,17 @@ public static Author author(Long id){
     }
 return author;
 }
+
+    public static void saveAuthor(String fullName, String biography) {
+
+        Connection connection = DbConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into author(fullname, biography) values (?,?)");
+            preparedStatement.setString(1,fullName);
+            preparedStatement.setString(2,biography);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

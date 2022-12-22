@@ -20,8 +20,9 @@
     </div>
     <div class="menu">
         <ul class="d-flex">
-            <li class="mx-3"><a href="/login.jsp">Login</a></li>
-
+<%--            <li class="mx-3"><a href="logout">Logout</a></li>--%>
+            <li class="mx-3"><a href="myBooks">My books</a></li>
+            <li class="mx-3"><a href="books">Home page</a></li>
         </ul>
     </div>
     <div class="search">

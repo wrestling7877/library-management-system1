@@ -10,8 +10,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 8px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button2 {background-color: #008CBA;} /* Blue */
+        .button2 {border-radius: 12px;}
+        .button5 {border-radius: 12px;}
+        .button5 {background-color: #f44336;} /* Black */
+    </style>
     <title>BOOK PAGE</title>
-    <!--    <link rel="stylesheet" href="styles.css">-->
+
 
     <link rel="stylesheet" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
@@ -49,12 +69,27 @@
         </c:forEach>
 
     </div>
-<div align="center">
-    <c:forEach begin="${1}" end="${bookSize}" var="sizeBook">
+    <div align="center">
 
-        <a href="books?page=${sizeBook}">${  sizeBook}</a>
 
-    </c:forEach>
+        <%    int page1 = (int) request.getAttribute("page");
+            int next = page1;
+        %>
+        <%    int page2= (int) request.getAttribute("prev") ;
+            int prev = page2;
+        %>
+
+
+
+        <a href="books?page=<%=prev%>">  <button class="button button2">Previous</button> </a>
+
+        <a href="books?page=${1}"> ${1}</a>
+        <a href="books?page=${2}"> ${2}. . .</a>
+
+        <a href="books?page=<%=next%>">  <button class="button button5">Next</button> </a>
+
+
+
 </div>
 </section>
 

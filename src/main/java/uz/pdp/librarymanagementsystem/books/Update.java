@@ -21,6 +21,8 @@ import static uz.pdp.librarymanagementsystem.utils.Util.UPLOAD_DIRECTORY;
 @MultipartConfig(maxFileSize = 10_000_000)
 public class Update extends HttpServlet {
 
+static Long bookId;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
@@ -35,6 +37,7 @@ public class Update extends HttpServlet {
         Part imagePart = req.getPart("image");
 
         Book book = Book.builder()
+                .id(bookId)
                 .title(title)
                 .description(description)
                 .year(year)
@@ -45,10 +48,11 @@ public class Update extends HttpServlet {
                 .imgUrl(uploadAndGetImageUrl(imagePart))
                 .build();
 
-         BookDao.update(book);
+         BookDao.updateBook(book);
 
 
-      //   req.getRequestDispatcher("update2").forward(req,resp);
+        // TODO: 05/08/2022 forward  
+         req.getRequestDispatcher("update2").forward(req,resp);
 
         }
 
@@ -87,8 +91,8 @@ public class Update extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer id = Integer.valueOf(req.getParameter("id"));
-        BookDao.setId_for_update(Long.valueOf(id));
+
+       bookId = Long.valueOf(req.getParameter("id"));
 
         req.setAttribute("authorList", AuthorDao.getAllAuthors());
         req.setAttribute("categoryList", CategoryDao.getAllCategories());
