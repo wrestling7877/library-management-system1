@@ -37,21 +37,27 @@
     </style>
 </head>
 <body>
-<%@include file="includes/navbar.jsp" %>
+<%@include file="includes/navbarForAdminSuperAdmin.jsp" %>
 
 <div class="hero-image">
     <div class="hero-text">
         <h1 style="font-size:50px"></h1>
         <h3></h3>
         <div align="center">
-            <button><a href="/add-book">Add Book</a><br><br></button>
-<%--            <button><a href="signup.jsp">Add User</a><br><br></button>--%>
-<%--            <button><a href="showUser.jsp">Show users</a><br><br></button>--%>
-<%--            <button><a href="showBook">Show Book</a><br><br></button>--%>
-            <button><a href="books">Home page</a><br><br></button>
-            <button><a href="update2">Update</a><br><br></button>
-            <button><a href="deleteBook">Delete book</a><br><br></button>
+            <h1> Admin Page</h1>
+        </div>
+        <div align="center">
 
+
+            <button><a href="/add-book">Add Book</a><br><br></button>
+            <button><a href="userPagination">User delete and update</a><br><br></button>
+            <button><a href="signup.jsp">Add user</a><br><br></button>
+            <br><br>
+            <button><a href="addAuthor.jsp">Add Author</a><br><br></button>
+            <button><a href="books">Home page</a><br><br></button>
+            <br><br>
+            <button><a href="update2">Book Update</a><br><br></button>
+            <button><a href="deleteBook">Delete book</a><br><br></button>
 
 
         </div>
