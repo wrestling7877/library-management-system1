@@ -121,8 +121,8 @@ src/
 ### Step 1. リポジトリを取得
 
 ```bash
-git clone <リポジトリURL>
-cd library-management-system
+git clone https://github.com/wrestling7877/library-management-system1.git
+cd library-management-system1
 ```
 
 ### Step 2. PostgreSQLを準備
